@@ -79,7 +79,6 @@ const Intro = () => {
               src={Personal}
               alt="personal image"
               placeholder="blur"
-              quality={100}
               priority={true}
               className="h-24 w-24 rounded-full border-[0.35rem] border-white object-cover shadow-xl dark:border-stone-500"
             />

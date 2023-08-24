@@ -55,7 +55,6 @@ const Projects = () => {
                   src={project.imageUrl}
                   alt={project.alt}
                   placeholder="blur"
-                  quality={100}
                   priority={true}
                   className="absolute -right-40 top-8 hidden w-[28.25rem] rounded-t-lg shadow-2xl transition group-even:-left-40
                             group-even:right-[initial]
