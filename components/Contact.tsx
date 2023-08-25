@@ -2,7 +2,7 @@
 import sendEmail from "@/actions/sendEmail";
 import { useTheme } from "@/context/ThemeContextProvider";
 import { useHeadreActive } from "@/lib/hooks";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import SubmitButton from "./SubmitButton";
@@ -18,7 +18,7 @@ const Contact = () => {
   };
   const { theme } = useTheme();
   return (
-    <motion.section
+    <m.section
       ref={ref}
       id="contact"
       className="mb-20  w-[min(100%,38rem)]  scroll-mt-28 items-center sm:mb-28"
@@ -95,7 +95,7 @@ const Contact = () => {
           <SubmitButton />
         </div>
       </form>
-    </motion.section>
+    </m.section>
   );
 };
 

@@ -2,7 +2,7 @@
 import { useHeaderContaext } from "@/context/HeaderIndecatorProvider";
 import { useHeadreActive } from "@/lib/hooks";
 import Personal from "@/public/personal.jpg";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { BsArrowRight, BsLinkedin } from "react-icons/bs";
@@ -74,7 +74,7 @@ const Intro = () => {
     >
       <div className="flex  items-center justify-center">
         <div className="relative ">
-          <motion.div variants={image} initial="hidden" animate="show">
+          <m.div variants={image} initial="hidden" animate="show">
             <Image
               src={Personal}
               alt="personal image"
@@ -82,18 +82,18 @@ const Intro = () => {
               priority={true}
               className="h-24 w-24 rounded-full border-[0.35rem] border-white object-cover shadow-xl dark:border-stone-500"
             />
-          </motion.div>
-          <motion.span
+          </m.div>
+          <m.span
             className="absolute bottom-0 right-0 text-2xl"
             variants={emoje}
             initial="hidden"
             animate="show"
           >
             🤙
-          </motion.span>
+          </m.span>
         </div>
       </div>
-      <motion.p
+      <m.p
         className="mb10 mt-4 px-4  text-2xl font-medium sm:text-4xl"
         variants={paragraph}
         initial="hidden"
@@ -103,14 +103,14 @@ const Intro = () => {
         <span className="bg-gradient-to-r from-[#6257b4] to-[#ca4d52] bg-clip-text text-2xl text-transparent dark:from-[#45C6F9] dark:to-[#8CFBA1]">
           Software Engineer | Front End Developer | React Developer
         </span>{" "}
-      </motion.p>
-      <motion.div
+      </m.p>
+      <m.div
         className="mt-4 flex flex-col items-center justify-center gap-2 px-4 text-lg font-medium sm:flex-row"
         variants={buttons}
         initial="hidden"
         animate="show"
       >
-        <motion.div
+        <m.div
           variants={links1}
           initial="hidden"
           animate="show"
@@ -124,13 +124,14 @@ const Intro = () => {
               setActive("Contact");
               setTimeClick(Date.now());
             }}
+            title="Contact me"
           >
             Contact me here{" "}
             <BsArrowRight className="transition-transform group-hover:translate-x-1" />
           </Link>
-        </motion.div>
+        </m.div>
 
-        <motion.a
+        <m.a
           className="group flex cursor-pointer items-center gap-2 rounded-full bg-white px-7 py-3 dark:bg-[#22222C]"
           variants={links1}
           initial="hidden"
@@ -139,11 +140,12 @@ const Intro = () => {
           whileTap="tap"
           download
           href="/CV.pdf"
+          title="Download CV"
         >
           Downloda CV{" "}
           <HiDownload className="transition-transform group-hover:translate-y-1" />
-        </motion.a>
-        <motion.a
+        </m.a>
+        <m.a
           className="flex items-center gap-2 rounded-full bg-white px-7 py-3 text-gray-700 transition-colors  hover:text-gray-950 dark:bg-[#22222C] dark:text-stone-300 dark:hover:text-white"
           variants={links2}
           initial="hidden"
@@ -152,10 +154,11 @@ const Intro = () => {
           whileTap="tap"
           href="https://www.linkedin.com/in/ali-fouanne-56b602222/"
           target="_blank"
+          title="Linkedin"
         >
           <BsLinkedin />
-        </motion.a>
-        <motion.a
+        </m.a>
+        <m.a
           className="flex items-center gap-2 rounded-full bg-white  px-7 py-3 text-[1.35rem] text-gray-700 transition-colors hover:text-gray-950 dark:bg-[#22222C] dark:text-stone-300 dark:hover:text-white"
           variants={links2}
           initial="hidden"
@@ -164,10 +167,11 @@ const Intro = () => {
           whileTap="tap"
           href="https://github.com/Alifouanne"
           target="_blank"
+          title="Github"
         >
           <FaGithubSquare />
-        </motion.a>
-      </motion.div>
+        </m.a>
+      </m.div>
     </section>
   );
 };

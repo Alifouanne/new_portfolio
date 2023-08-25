@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 const Devider = () => {
   const line = {
     hidden: {
@@ -13,7 +13,7 @@ const Devider = () => {
     },
   };
   return (
-    <motion.div
+    <m.div
       className="my-24  h-16 w-1 rounded-full bg-gray-200 dark:bg-[#3ABF94]"
       variants={line}
       initial="hidden"

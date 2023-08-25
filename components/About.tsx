@@ -1,6 +1,6 @@
 "use client";
 import { useHeadreActive } from "@/lib/hooks";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 const About = () => {
   const text = {
     hidden: {
@@ -18,7 +18,7 @@ const About = () => {
   };
   const { ref } = useHeadreActive("About");
   return (
-    <motion.section
+    <m.section
       className="mt-16 flex max-w-[45rem] scroll-mt-52 flex-col items-center justify-center text-center  leading-8"
       variants={text}
       initial="hidden"
@@ -41,7 +41,7 @@ const About = () => {
         building efficient, scalable code and optimizing performance for
         seamless cross-browser compatibility.
       </p>
-    </motion.section>
+    </m.section>
   );
 };
 

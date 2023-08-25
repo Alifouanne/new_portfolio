@@ -17,6 +17,7 @@ const Footer = () => {
                 <Link
                   href={link.hash}
                   className="mr-4 transition-colors hover:text-gray-950 dark:text-stone-200 dark:hover:text-[#3ABF94] md:mr-6"
+                  title={link.name}
                 >
                   {link.name}
                 </Link>

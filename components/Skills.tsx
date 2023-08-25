@@ -1,7 +1,7 @@
 "use client";
 import { skillsData } from "@/lib/data";
 import { useHeadreActive } from "@/lib/hooks";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 const Skills = () => {
   const { ref } = useHeadreActive("Skills");
 
@@ -30,7 +30,7 @@ const Skills = () => {
 
       <ul className="flex flex-wrap justify-center gap-2 text-lg text-gray-800 dark:text-white">
         {skillsData.map((skill, index) => (
-          <motion.li
+          <m.li
             key={index}
             className="select-none rounded-full border border-black/10 bg-white px-5 py-3 dark:border-stone-400/20 dark:bg-[#22222C]"
             variants={skillsVariants}
@@ -41,7 +41,7 @@ const Skills = () => {
             custom={index}
           >
             {skill}
-          </motion.li>
+          </m.li>
         ))}
       </ul>
     </section>

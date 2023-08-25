@@ -1,6 +1,6 @@
 "use client";
 import { useTheme } from "@/context/ThemeContextProvider";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { BsMoon, BsSun } from "react-icons/bs";
 const ThemeChanger = () => {
   const button = {
@@ -28,7 +28,7 @@ const ThemeChanger = () => {
 
   const { theme, themeHandler } = useTheme();
   return (
-    <motion.button
+    <m.button
       className="fixed bottom-5 right-5 flex h-[3rem] w-[3rem] items-center justify-center rounded-full border border-black/5 bg-white/80 shadow-2xl backdrop-blur-[0.5rem]
       dark:border-stone-400/40 dark:bg-[#3ABF94]/60"
       variants={button}
@@ -37,17 +37,19 @@ const ThemeChanger = () => {
       whileHover="hover"
       whileTap="tap"
       onClick={themeHandler}
+      name="button"
+      title="theme changer button"
     >
       {theme === "light" ? (
-        <motion.div whileTap={{ x: 100 }}>
+        <m.div whileTap={{ x: 100 }}>
           <BsSun />
-        </motion.div>
+        </m.div>
       ) : (
-        <motion.div whileTap={{ x: 100 }}>
+        <m.div whileTap={{ x: 100 }}>
           <BsMoon />
-        </motion.div>
+        </m.div>
       )}
-    </motion.button>
+    </m.button>
   );
 };
 
