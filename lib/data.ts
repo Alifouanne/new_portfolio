@@ -4,6 +4,7 @@ import CryptoImg from "@/public/crypto.png";
 import GymImg from "@/public/gym.png";
 import MetaImg from "@/public/meta.png";
 import WeatherImg from "@/public/weather.png";
+import NotateImg from "@/public/Notate.png";
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiLogoMeta } from "react-icons/bi";
@@ -14,6 +15,7 @@ import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import { LuGraduationCap } from "react-icons/lu";
 import { TbBrandNextjs } from "react-icons/tb";
 import { WiDayLightning } from "react-icons/wi";
+import { CiMemoPad } from "react-icons/ci";
 export const links = [
   {
     name: "Home",
@@ -159,6 +161,17 @@ export const projectsData = [
     alt: "gymapp image",
     liveDemo: "https://gym-website-hqa.pages.dev/",
     github: "https://github.com/Alifouanne/gym-website",
+  },
+  {
+    title: "SaaS Notes App",
+    icon: React.createElement(CiMemoPad),
+    description:
+      "This website is SaaS Note App enable you create and edit your Nots online.",
+    tags: ["Next.JS 14", "Tailwind", "Kinde", "ShadCn", "Supabase", "Stripe"],
+    imageUrl: NotateImg,
+    alt: "NoteApp Image",
+    liveDemo: "https://notes-saas-zeta.vercel.app/",
+    github: "https://github.com/Alifouanne/notes-saas",
   },
 ] as const;
 
