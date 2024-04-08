@@ -5,6 +5,7 @@ import GymImg from "@/public/gym.png";
 import MetaImg from "@/public/meta.png";
 import WeatherImg from "@/public/weather.png";
 import NotateImg from "@/public/Notate.png";
+import AirbnbImg from "@/public/Airbnb.png";
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiLogoMeta } from "react-icons/bi";
@@ -16,6 +17,7 @@ import { LuGraduationCap } from "react-icons/lu";
 import { TbBrandNextjs } from "react-icons/tb";
 import { WiDayLightning } from "react-icons/wi";
 import { CiMemoPad } from "react-icons/ci";
+import { FaAirbnb } from "react-icons/fa";
 export const links = [
   {
     name: "Home",
@@ -172,6 +174,17 @@ export const projectsData = [
     alt: "NoteApp Image",
     liveDemo: "https://notes-saas-zeta.vercel.app/",
     github: "https://github.com/Alifouanne/notes-saas",
+  },
+  {
+    title: "Airbnb Clone",
+    icon: React.createElement(FaAirbnb),
+    description:
+      "This website is a SaaS platform that enables you to list and rent properties, make reservations, and manage your bookings online.",
+    tags: ["Next.JS 14.1", "Tailwind", "Kinde", "ShadCn", "Supabase", "Prisma"],
+    imageUrl: AirbnbImg,
+    alt: "AirbnbApp Image",
+    liveDemo: "https://airbnb-clone-khaki-chi.vercel.app",
+    github: "https://github.com/Alifouanne/airbnb-clone",
   },
 ] as const;
 
