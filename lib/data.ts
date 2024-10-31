@@ -1,23 +1,24 @@
+import AirbnbImg from "@/public/Airbnb.png";
 import AmazonImg from "@/public/amazon.png";
 import ChatImg from "@/public/chat.png";
 import CryptoImg from "@/public/crypto.png";
 import GymImg from "@/public/gym.png";
 import MetaImg from "@/public/meta.png";
-import WeatherImg from "@/public/weather.png";
 import NotateImg from "@/public/Notate.png";
-import AirbnbImg from "@/public/Airbnb.png";
+import WeatherImg from "@/public/weather.png";
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiLogoMeta } from "react-icons/bi";
 import { BsCurrencyBitcoin } from "react-icons/bs";
 import { CgGym } from "react-icons/cg";
-import { FaReact, FaUniversity } from "react-icons/fa";
+import { CiMemoPad } from "react-icons/ci";
+import { FaAirbnb, FaReact, FaUniversity } from "react-icons/fa";
+import { GiRunningShoe } from "react-icons/gi";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import { LuGraduationCap } from "react-icons/lu";
 import { TbBrandNextjs } from "react-icons/tb";
 import { WiDayLightning } from "react-icons/wi";
-import { CiMemoPad } from "react-icons/ci";
-import { FaAirbnb } from "react-icons/fa";
+import Footflair from "../public/Foot Flair Image.png";
 export const links = [
   {
     name: "Home",
@@ -185,6 +186,25 @@ export const projectsData = [
     alt: "AirbnbApp Image",
     liveDemo: "https://airbnb-clone-khaki-chi.vercel.app",
     github: "https://github.com/Alifouanne/airbnb-clone",
+  },
+  {
+    title: "Foot Flair",
+    icon: React.createElement(GiRunningShoe),
+    description:
+      "Foot Flair is a modern, full-featured e-commerce application for selling shoes.",
+    tags: [
+      "Next.JS 14.2",
+      "Tailwind",
+      "Kinde",
+      "ShadCn",
+      "Neon",
+      "Prisma",
+      "Redis",
+    ],
+    imageUrl: Footflair,
+    alt: "Foot Flair Image",
+    liveDemo: "https://foot-flair.vercel.app/",
+    github: "https://github.com/Alifouanne/foot-flair",
   },
 ] as const;
 
