@@ -12,12 +12,13 @@ import { BiLogoMeta } from "react-icons/bi";
 import { BsCurrencyBitcoin } from "react-icons/bs";
 import { CgGym } from "react-icons/cg";
 import { CiMemoPad } from "react-icons/ci";
-import { FaAirbnb, FaReact, FaUniversity } from "react-icons/fa";
+import { FaAirbnb, FaBlog, FaReact, FaUniversity } from "react-icons/fa";
 import { GiRunningShoe } from "react-icons/gi";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import { LuGraduationCap } from "react-icons/lu";
 import { TbBrandNextjs } from "react-icons/tb";
 import { WiDayLightning } from "react-icons/wi";
+import BlogSphere from "../public/BlogSphere.png";
 import Footflair from "../public/Foot Flair Image.png";
 export const links = [
   {
@@ -205,6 +206,26 @@ export const projectsData = [
     alt: "Foot Flair Image",
     liveDemo: "https://foot-flair.vercel.app/",
     github: "https://github.com/Alifouanne/foot-flair",
+  },
+  {
+    title: "Blog Sphere",
+    icon: React.createElement(FaBlog),
+    description:
+      "Blog Sphere is a powerful, feature-rich blogging platform that enables users to create and manage multiple blogs with ease.",
+    tags: [
+      "Next.JS 15",
+      "Tailwind",
+      "Kinde",
+      "ShadCn",
+      "Supabase",
+      "Prisma",
+      "Novel",
+      "Stripe",
+    ],
+    imageUrl: BlogSphere,
+    alt: "Blog Sphere Image",
+    liveDemo: "https://blog-sphere-lemon.vercel.app/",
+    github: "https://github.com/Alifouanne/blog_sphere",
   },
 ] as const;
 
