@@ -3,6 +3,7 @@ import AmazonImg from "@/public/amazon.png";
 import ChatImg from "@/public/chat.png";
 import CryptoImg from "@/public/crypto.png";
 import GymImg from "@/public/gym.png";
+import InvoiceMint from "@/public/Invoice_Mint.png";
 import MetaImg from "@/public/meta.png";
 import NotateImg from "@/public/Notate.png";
 import WeatherImg from "@/public/weather.png";
@@ -16,7 +17,7 @@ import { FaAirbnb, FaBlog, FaReact, FaUniversity } from "react-icons/fa";
 import { GiRunningShoe } from "react-icons/gi";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import { LuGraduationCap } from "react-icons/lu";
-import { TbBrandNextjs } from "react-icons/tb";
+import { TbBrandNextjs, TbFileInvoice } from "react-icons/tb";
 import { WiDayLightning } from "react-icons/wi";
 import BlogSphere from "../public/BlogSphere.png";
 import Footflair from "../public/Foot Flair Image.png";
@@ -226,6 +227,26 @@ export const projectsData = [
     alt: "Blog Sphere Image",
     liveDemo: "https://blog-sphere-lemon.vercel.app/",
     github: "https://github.com/Alifouanne/blog_sphere",
+  },
+  {
+    title: "Invoice Mint",
+    icon: React.createElement(TbFileInvoice),
+    description:
+      "InvoiceMint is a modern, user-friendly invoicing platform that empowers businesses and freelancers to create, manage, and track professional invoices effortlessly.",
+    tags: [
+      "Next.JS 15",
+      "Tailwind",
+      "Next Auth",
+      "ShadCn",
+      "Neon",
+      "Prisma",
+      "Mailtrap",
+      "Jspdf",
+    ],
+    imageUrl: InvoiceMint,
+    alt: "Invoice Mint Image",
+    liveDemo: "https://invoice-mint.vercel.app",
+    github: "https://github.com/Alifouanne/invoice_mint",
   },
 ] as const;
 
