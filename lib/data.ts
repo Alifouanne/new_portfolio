@@ -4,6 +4,7 @@ import ChatImg from "@/public/chat.png";
 import CryptoImg from "@/public/crypto.png";
 import GymImg from "@/public/gym.png";
 import InvoiceMint from "@/public/Invoice_Mint.png";
+import JobForge from "@/public/job-forge.png";
 import MetaImg from "@/public/meta.png";
 import NotateImg from "@/public/Notate.png";
 import WeatherImg from "@/public/weather.png";
@@ -17,6 +18,7 @@ import { FaAirbnb, FaBlog, FaReact, FaUniversity } from "react-icons/fa";
 import { GiRunningShoe } from "react-icons/gi";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
 import { LuGraduationCap } from "react-icons/lu";
+import { MdOutlineWorkOutline } from "react-icons/md";
 import { TbBrandNextjs, TbFileInvoice } from "react-icons/tb";
 import { WiDayLightning } from "react-icons/wi";
 import BlogSphere from "../public/BlogSphere.png";
@@ -247,6 +249,29 @@ export const projectsData = [
     alt: "Invoice Mint Image",
     liveDemo: "https://invoice-mint.vercel.app",
     github: "https://github.com/Alifouanne/invoice_mint",
+  },
+  {
+    title: "Job Forge",
+    icon: React.createElement(MdOutlineWorkOutline),
+    description:
+      "A modern, full-stack job board application built with Next.js 15, featuring advanced job posting, search capabilities, and seamless user experience.",
+    tags: [
+      "Next.JS 15",
+      "TypeScript",
+      "Framer Motion",
+      "Stripe",
+      "Tailwind",
+      "Next Auth",
+      "ShadCn",
+      "Prisma",
+      "Resend",
+      "Inngest",
+      " Arcjet",
+    ],
+    imageUrl: JobForge,
+    alt: "Job Forge Image",
+    liveDemo: "https://job-forge.vercel.app",
+    github: "https://github.com/Alifouanne/job-forge",
   },
 ] as const;
 
