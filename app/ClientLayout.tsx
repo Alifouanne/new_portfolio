@@ -40,7 +40,7 @@ export default function ClientLayout({
       >
         <AuroraBackground />
         <LazyMotions>
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <HeaderIndecatorProvider>
               <Suspense fallback={null}>
                 <Header />
