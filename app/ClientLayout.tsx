@@ -30,7 +30,11 @@ export default function ClientLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`!scroll-smooth ${inter.variable}`}>
+    <html
+      lang="en"
+      className={`!scroll-smooth ${inter.variable}`}
+      suppressHydrationWarning
+    >
       <body
         className={`relative overflow-x-hidden pt-36 font-sans text-gray-950 transition-all duration-700 ease-in-out dark:text-stone-200 sm:pt-36`}
       >
