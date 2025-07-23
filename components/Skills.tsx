@@ -1,49 +1,74 @@
 "use client";
-import { skillsData } from "@/lib/data";
+
 import { useHeadreActive } from "@/lib/hooks";
 import { m } from "framer-motion";
+import { IconCloud } from "./magicui/icon-cloud";
+import { AnimatedGradientText } from "./magicui/animated-text";
+import { useTheme } from "next-themes";
+
+const slugs = [
+  "html5",
+  "css",
+  "javascript",
+  "typescript",
+  "react",
+  "nextdotjs",
+  "git",
+  "tailwindcss",
+  "prisma",
+  "redux",
+  "apollographql",
+  "postgresql",
+  "mysql",
+  "jquery",
+  "materialdesign",
+  "framer",
+  "kdeneon",
+  "supabase",
+  "betterauth",
+];
 const Skills = () => {
   const { ref } = useHeadreActive("Skills");
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
 
-  const skillsVariants = {
-    hidden: { opacity: 0, y: 100 },
+  const skillItemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
     show: (index: number) => ({
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
-        delay: 0.06 * index,
+        delay: 0.05 * index, // Slightly faster stagger
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94],
       },
     }),
     hover: {
-      scale: 1.2,
+      scale: 1.05, // More subtle scale
+      y: -3, // Slight lift
+
+      transition: { type: "spring", stiffness: 300 },
     },
+    tap: { scale: 0.95 },
   };
+
+  const images = slugs.map(
+    (slug) => `https://cdn.simpleicons.org/${slug}/${slug}`,
+  );
   return (
     <section
       id="skills"
       ref={ref}
-      className="mb-28 max-w-[53rem] scroll-mt-28 text-center sm:mb-32"
+      className="relative mb-28 max-w-[53rem] scroll-mt-28   px-4 text-center sm:mb-32" // Added px-4 and overflow-hidden
     >
-      <h2 className="mb-8 text-center text-3xl font-medium capitalize">
-        My Skills
-      </h2>
+      <div className="text mb-8 text-center text-3xl font-medium capitalize">
+        <AnimatedGradientText speed={1.5} colorFrom="#3eb489" colorTo="#90EE90">
+          My Skills
+        </AnimatedGradientText>
+      </div>
 
-      <ul className="flex flex-wrap justify-center gap-2 text-lg text-gray-800 dark:text-white">
-        {skillsData.map((skill, index) => (
-          <m.li
-            key={index}
-            className="select-none rounded-full border border-black/10 bg-white px-5 py-3 dark:border-stone-400/20 dark:bg-[#22222C]"
-            variants={skillsVariants}
-            initial="hidden"
-            whileInView="show"
-            whileHover="hover"
-            viewport={{ once: true }}
-            custom={index}
-          >
-            {skill}
-          </m.li>
-        ))}
-      </ul>
+      <IconCloud images={images} />
     </section>
   );
 };

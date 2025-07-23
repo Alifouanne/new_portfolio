@@ -1,15 +1,27 @@
 "use client";
+
 import { useHeaderContaext } from "@/context/HeaderIndecatorProvider";
 import { links } from "@/lib/data";
 import clsx from "clsx";
 import { m } from "framer-motion";
+import { useTheme } from "next-themes";
 import Link from "next/link";
+
 const Header = () => {
   const { active, setActive, setTimeClick } = useHeaderContaext();
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
   return (
     <header className="relative z-50">
       <m.div
-        className="fixed left-1/2 top-0  w-full  rounded-none border border-white border-opacity-40 bg-white bg-opacity-80 shadow-lg shadow-black/[0.03] backdrop-blur-[0.5rem] dark:border-[#22222C]/40 dark:bg-[#22222C]/80 dark:shadow-stone-200/[0.03]  sm:top-6 sm:w-[36rem] sm:rounded-full"
+        className={clsx(
+          "fixed left-1/2 top-0 w-full rounded-none shadow-lg shadow-black/[0.03] backdrop-blur-[0.5rem]",
+          "sm:top-6 sm:w-[36rem] sm:rounded-full",
+          isDarkMode
+            ? "border border-gray-700/50 bg-gray-800/80 dark:shadow-black/[0.3]" // Dark mode styles
+            : "border border-gray-200/50 bg-white/80 shadow-gray-200/[0.03]", // Light mode styles
+        )}
         initial={{
           y: -100,
           opacity: 0,
@@ -21,7 +33,7 @@ const Header = () => {
           x: "-50%",
         }}
       >
-        <nav className="flex  items-center justify-center p-2 ">
+        <nav className="flex items-center justify-center p-2">
           <m.ul
             className="flex w-[22rem] flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium text-gray-500 dark:text-stone-200 sm:w-[initial] sm:flex-nowrap sm:gap-5"
             initial={{ y: -100, opacity: 0 }}
@@ -36,7 +48,7 @@ const Header = () => {
                 <Link
                   href={link.hash}
                   className={clsx(
-                    " flex w-full items-center justify-center p-3   transition-colors hover:text-gray-950 dark:hover:text-white",
+                    "flex w-full items-center justify-center p-3 transition-colors hover:text-gray-950 dark:hover:text-white",
                     {
                       "text-gray-950 dark:text-white": active === link.name,
                     },
@@ -49,7 +61,12 @@ const Header = () => {
                 >
                   {active === link.name ? (
                     <m.span
-                      className="absolute inset-0 -z-10 rounded-full bg-gray-100 dark:bg-[#3ABF94]"
+                      className={clsx(
+                        "absolute inset-0 -z-10 rounded-full",
+                        isDarkMode
+                          ? "bg-gradient-to-r from-[#3ABF94] to-[#45C6F9]" // Dark mode active gradient
+                          : "bg-gradient-to-r from-purple-50 to-pink-50", // Light mode active gradient
+                      )}
                       initial={{
                         y: -100,
                         opacity: 0,
