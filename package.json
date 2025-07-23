@@ -41,12 +41,12 @@
     "supports-color": "^8.1.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "3.3.3",
-    "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.1.6"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/react-vertical-timeline-component": "^3.3.3",
     "prettier": "^3.0.1",
-    "prettier-plugin-tailwindcss": "^0.5.2"
+    "prettier-plugin-tailwindcss": "^0.5.2",
+    "typescript": "^5.8.3"
   }
 }
