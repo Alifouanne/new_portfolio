@@ -15,6 +15,7 @@ import { ThemeProvider } from "@/context/theme-provider";
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { MobileHintDialog } from "@/components/MobileHintDialog";
 const Footer = dynamic(() => import("@/components/Footer"));
 const Header = dynamic(() => import("@/components/Header"));
 
@@ -52,6 +53,7 @@ export default function ClientLayout({
                 <Toaster position="top-right" />
                 <Footer />
                 <ThemeToggleButton variant="circle" start="bottom-right" />
+                <MobileHintDialog />
               </Suspense>
             </HeaderIndecatorProvider>
           </ThemeProvider>
