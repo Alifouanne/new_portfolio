@@ -11,21 +11,32 @@ import "react-vertical-timeline-component/style.min.css";
 import { m } from "framer-motion"; // Import motion for title animation
 import { AnimatedGradientText } from "./magicui/animated-text";
 import { useTheme } from "next-themes";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const Experience = () => {
   const { ref } = useHeadreActive("Experience");
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
-
+  const isMobile = useIsMobile();
   return (
     <section
       id="experience"
       className="mb-28 max-w-[50rem] scroll-mt-28 px-4 text-center sm:mb-40"
     >
       <div className="text mb-8 text-center text-3xl font-medium capitalize">
-        <AnimatedGradientText speed={1.5} colorFrom="#3eb489" colorTo="#90EE90">
-          Experience & Qualification
-        </AnimatedGradientText>
+        {isMobile ? (
+          <span className="block bg-gradient-to-r from-[#3eb489] to-[#90EE90] bg-clip-text font-bold text-transparent">
+            Experience & Qualification
+          </span>
+        ) : (
+          <AnimatedGradientText
+            speed={1.5}
+            colorFrom="#3eb489"
+            colorTo="#90EE90"
+          >
+            Experience & Qualification
+          </AnimatedGradientText>
+        )}
       </div>
 
       <VerticalTimeline

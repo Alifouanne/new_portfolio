@@ -14,7 +14,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/theme-provider";
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { AuroraBackground } from "@/components/ui/aurora-background";
-
+import { useIsMobile } from "@/lib/useIsMobile";
 const Footer = dynamic(() => import("@/components/Footer"));
 const Header = dynamic(() => import("@/components/Header"));
 
@@ -29,6 +29,7 @@ export default function ClientLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const isMobile = useIsMobile();
   return (
     <html
       lang="en"
@@ -38,7 +39,8 @@ export default function ClientLayout({
       <body
         className={`relative overflow-x-hidden pt-36 font-sans text-gray-950 transition-all duration-700 ease-in-out dark:text-stone-200 sm:pt-36`}
       >
-        <AuroraBackground />
+        {isMobile ? "" : <AuroraBackground />}
+
         <LazyMotions>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <HeaderIndecatorProvider>

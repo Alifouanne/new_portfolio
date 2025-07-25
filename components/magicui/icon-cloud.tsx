@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/lib/useIsMobile";
+import type React from "react";
+import { useEffect, useRef, useState } from "react";
 import { renderToString } from "react-dom/server";
 
 interface Icon {
@@ -26,7 +28,7 @@ export function IconCloud({ icons, images }: IconCloudProps) {
   const [iconPositions, setIconPositions] = useState<Icon[]>([]);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
-  const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
+  const [lastPointerPos, setLastPointerPos] = useState({ x: 0, y: 0 }); // Unified for mouse/touch
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [targetRotation, setTargetRotation] = useState<{
     x: number;
@@ -39,22 +41,35 @@ export function IconCloud({ icons, images }: IconCloudProps) {
   } | null>(null);
   const animationFrameRef = useRef<number>();
   const rotationRef = useRef(rotation);
-  const iconCanvasesRef = useRef<HTMLCanvasElement[]>([]);
-  const imagesLoadedRef = useRef<boolean[]>([]);
+  const iconCanvasesRef = useRef<HTMLCanvasElement[] | null>(null); // Initialize as null
+  const imagesLoadedRef = useRef<boolean[]>(new Array(0).fill(false)); // Initialize with empty array
+  const [distance, setDistance] = useState(0); // Declare the distance variable
+
+  const isMobile = useIsMobile(); // Use the custom hook
+
+  // Helper to get coordinates from mouse or touch event
+  const getCoords = (e: React.MouseEvent | React.TouchEvent) => {
+    if ("touches" in e) {
+      return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+    return { x: e.clientX, y: e.clientY };
+  };
 
   // Create icon canvases once when icons/images change
   useEffect(() => {
-    if (!icons && !images) return;
+    if (!icons && !images) {
+      iconCanvasesRef.current = [];
+      imagesLoadedRef.current = [];
+      return;
+    }
 
     const items = icons || images || [];
     imagesLoadedRef.current = new Array(items.length).fill(false);
-
     const newIconCanvases = items.map((item, index) => {
       const offscreen = document.createElement("canvas");
       offscreen.width = 40;
       offscreen.height = 40;
       const offCtx = offscreen.getContext("2d");
-
       if (offCtx) {
         if (images) {
           // Handle image URLs directly
@@ -63,16 +78,13 @@ export function IconCloud({ icons, images }: IconCloudProps) {
           img.src = items[index] as string;
           img.onload = () => {
             offCtx.clearRect(0, 0, offscreen.width, offscreen.height);
-
             // Create circular clipping path
             offCtx.beginPath();
             offCtx.arc(20, 20, 20, 0, Math.PI * 2);
             offCtx.closePath();
             offCtx.clip();
-
             // Draw the image
             offCtx.drawImage(img, 0, 0, 40, 40);
-
             imagesLoadedRef.current[index] = true;
           };
         } else {
@@ -90,7 +102,6 @@ export function IconCloud({ icons, images }: IconCloudProps) {
       }
       return offscreen;
     });
-
     iconCanvasesRef.current = newIconCanvases;
   }, [icons, images]);
 
@@ -99,19 +110,15 @@ export function IconCloud({ icons, images }: IconCloudProps) {
     const items = icons || images || [];
     const newIcons: Icon[] = [];
     const numIcons = items.length || 20;
-
     // Fibonacci sphere parameters
     const offset = 2 / numIcons;
     const increment = Math.PI * (3 - Math.sqrt(5));
-
     for (let i = 0; i < numIcons; i++) {
       const y = i * offset - 1 + offset / 2;
       const r = Math.sqrt(1 - y * y);
       const phi = i * increment;
-
       const x = Math.cos(phi) * r;
       const z = Math.sin(phi) * r;
-
       newIcons.push({
         x: x * 100,
         y: y * 100,
@@ -124,17 +131,21 @@ export function IconCloud({ icons, images }: IconCloudProps) {
     setIconPositions(newIcons);
   }, [icons, images]);
 
-  // Handle mouse events
-  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  // Handle pointer events (mouse and touch)
+  const handlePointerDown = (
+    e:
+      | React.MouseEvent<HTMLCanvasElement>
+      | React.TouchEvent<HTMLCanvasElement>,
+  ) => {
+    e.preventDefault(); // Prevent default touch behavior like scrolling
+    const { x: clientX, y: clientY } = getCoords(e);
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect || !canvasRef.current) return;
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
 
-    const ctx = canvasRef.current.getContext("2d");
-    if (!ctx) return;
-
+    // Check if an icon was clicked/touched
     iconPositions.forEach((icon) => {
       const cosX = Math.cos(rotationRef.current.x);
       const sinX = Math.sin(rotationRef.current.x);
@@ -147,9 +158,9 @@ export function IconCloud({ icons, images }: IconCloudProps) {
 
       const screenX = canvasRef.current!.width / 2 + rotatedX;
       const screenY = canvasRef.current!.height / 2 + rotatedY;
-
       const scale = (rotatedZ + 200) / 300;
-      const radius = 20 * scale;
+      const radius = 20 * scale; // Assuming icon size is 40x40, so radius is 20
+
       const dx = x - screenX;
       const dy = y - screenY;
 
@@ -162,10 +173,11 @@ export function IconCloud({ icons, images }: IconCloudProps) {
 
         const currentX = rotationRef.current.x;
         const currentY = rotationRef.current.y;
+
         const distance = Math.sqrt(
           Math.pow(targetX - currentX, 2) + Math.pow(targetY - currentY, 2),
         );
-
+        setDistance(distance); // Set the distance variable
         const duration = Math.min(2000, Math.max(800, distance * 1000));
 
         setTargetRotation({
@@ -177,36 +189,40 @@ export function IconCloud({ icons, images }: IconCloudProps) {
           startTime: performance.now(),
           duration,
         });
-        return;
+        return; // Stop after finding the first clicked icon
       }
     });
 
     setIsDragging(true);
-    setLastMousePos({ x: e.clientX, y: e.clientY });
+    setLastPointerPos({ x: clientX, y: clientY });
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handlePointerMove = (
+    e:
+      | React.MouseEvent<HTMLCanvasElement>
+      | React.TouchEvent<HTMLCanvasElement>,
+  ) => {
+    const { x: clientX, y: clientY } = getCoords(e);
     const rect = canvasRef.current?.getBoundingClientRect();
     if (rect) {
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
       setMousePos({ x, y });
     }
 
     if (isDragging) {
-      const deltaX = e.clientX - lastMousePos.x;
-      const deltaY = e.clientY - lastMousePos.y;
+      const deltaX = clientX - lastPointerPos.x;
+      const deltaY = clientY - lastPointerPos.y;
 
       rotationRef.current = {
         x: rotationRef.current.x + deltaY * 0.002,
         y: rotationRef.current.y + deltaX * 0.002,
       };
-
-      setLastMousePos({ x: e.clientX, y: e.clientY });
+      setLastPointerPos({ x: clientX, y: clientY });
     }
   };
 
-  const handleMouseUp = () => {
+  const handlePointerUp = () => {
     setIsDragging(false);
   };
 
@@ -222,10 +238,14 @@ export function IconCloud({ icons, images }: IconCloudProps) {
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const maxDistance = Math.sqrt(centerX * centerX + centerY * centerY);
+
       const dx = mousePos.x - centerX;
       const dy = mousePos.y - centerY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const speed = 0.003 + (distance / maxDistance) * 0.01;
+
+      // Adjust base speed for mobile
+      const baseSpeed = isMobile ? 0.001 : 0.003;
+      const speed =
+        baseSpeed + (distance / maxDistance) * (isMobile ? 0.005 : 0.01); // Reduced sensitivity for mobile
 
       if (targetRotation) {
         const elapsed = performance.now() - targetRotation.startTime;
@@ -273,8 +293,9 @@ export function IconCloud({ icons, images }: IconCloudProps) {
         ctx.globalAlpha = opacity;
 
         if (icons || images) {
-          // Only try to render icons/images if they exist
+          // Only try to render icons/images if they exist and are loaded
           if (
+            iconCanvasesRef.current &&
             iconCanvasesRef.current[index] &&
             imagesLoadedRef.current[index]
           ) {
@@ -292,9 +313,9 @@ export function IconCloud({ icons, images }: IconCloudProps) {
           ctx.font = "16px Arial";
           ctx.fillText(`${icon.id + 1}`, 0, 0);
         }
-
         ctx.restore();
       });
+
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
@@ -305,17 +326,29 @@ export function IconCloud({ icons, images }: IconCloudProps) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [icons, images, iconPositions, isDragging, mousePos, targetRotation]);
+  }, [
+    icons,
+    images,
+    iconPositions,
+    isDragging,
+    mousePos,
+    targetRotation,
+    isMobile,
+    distance,
+  ]); // Add distance to dependencies
 
   return (
     <canvas
       ref={canvasRef}
-      width={400}
-      height={400}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
+      width={isMobile ? 250 : 400} // Smaller canvas for mobile
+      height={isMobile ? 250 : 400} // Smaller canvas for mobile
+      onMouseDown={handlePointerDown}
+      onMouseMove={handlePointerMove}
+      onMouseUp={handlePointerUp}
+      onMouseLeave={handlePointerUp}
+      onTouchStart={handlePointerDown}
+      onTouchMove={handlePointerMove}
+      onTouchEnd={handlePointerUp}
       className="rounded-lg"
       aria-label="Interactive 3D Icon Cloud"
       role="img"

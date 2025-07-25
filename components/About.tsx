@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { MagicCard } from "./magicui/magic-card";
 import { AnimatedGradientText } from "./magicui/animated-text";
 import { useTheme } from "next-themes";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const About = () => {
   const { ref } = useHeadreActive("About");
@@ -52,6 +53,7 @@ const About = () => {
       },
     },
   };
+  const isMobile = useIsMobile();
 
   return (
     <m.section
@@ -64,9 +66,19 @@ const About = () => {
       ref={ref}
     >
       <div className="text mb-8 text-center text-3xl font-medium capitalize">
-        <AnimatedGradientText speed={1.5} colorFrom="#3eb489" colorTo="#90EE90">
-          About Me
-        </AnimatedGradientText>
+        {isMobile ? (
+          <span className="block bg-gradient-to-r from-[#3eb489] to-[#90EE90] bg-clip-text font-bold text-transparent">
+            About Me
+          </span>
+        ) : (
+          <AnimatedGradientText
+            speed={1.5}
+            colorFrom="#3eb489"
+            colorTo="#90EE90"
+          >
+            About Me
+          </AnimatedGradientText>
+        )}
       </div>
       {/* Main Content Card with Glassmorphism */}
       <m.div variants={itemVariants} className="w-full">
@@ -79,22 +91,28 @@ const About = () => {
         >
           <MagicCard gradientColor={theme === "dark" ? "#262626" : "#D9D9D955"}>
             {/* Animated Border */}
-            <m.div
-              className="absolute inset-0 rounded-lg"
-              style={{
-                background: isDarkMode
-                  ? "linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent)" // Subtle white glow for dark mode
-                  : "linear-gradient(45deg, transparent, rgba(100,100,255,0.1), transparent)", // Softer blue glow for light mode
-              }}
-              animate={{
-                rotate: [0, 360],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "linear",
-              }}
-            />
+            {isMobile ? (
+              ""
+            ) : (
+              <>
+                <m.div
+                  className="absolute inset-0 rounded-lg"
+                  style={{
+                    background: isDarkMode
+                      ? "linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent)" // Subtle white glow for dark mode
+                      : "linear-gradient(45deg, transparent, rgba(100,100,255,0.1), transparent)", // Softer blue glow for light mode
+                  }}
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Number.POSITIVE_INFINITY,
+                    ease: "linear",
+                  }}
+                />
+              </>
+            )}
 
             <CardContent className="relative z-10 p-8">
               <div className="space-y-8">
@@ -191,18 +209,22 @@ const About = () => {
                           }}
                         >
                           {/* Animated Shine Effect */}
-                          <m.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                            animate={{
-                              x: ["-100%", "100%"],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Number.POSITIVE_INFINITY,
-                              delay: 2 + index * 0.2,
-                              repeatDelay: 3,
-                            }}
-                          />
+                          {isMobile ? (
+                            ""
+                          ) : (
+                            <m.div
+                              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                              animate={{
+                                x: ["-100%", "100%"],
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Number.POSITIVE_INFINITY,
+                                delay: 2 + index * 0.2,
+                                repeatDelay: 3,
+                              }}
+                            />
+                          )}
                         </m.div>
                       </div>
                     </m.div>
@@ -243,30 +265,35 @@ const About = () => {
           </MagicCard>
         </Card>
       </m.div>
-
-      {/* Particle Effect */}
-      <div className="pointer-events-none absolute inset-0">
-        {[...Array(6)].map((_, i) => (
-          <m.div
-            key={i}
-            className="absolute h-1 w-1 rounded-full bg-white/20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0, 1, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Number.POSITIVE_INFINITY,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-      </div>
+      {isMobile ? (
+        ""
+      ) : (
+        <div>
+          {/* Particle Effect */}
+          <div className="pointer-events-none absolute inset-0">
+            {[...Array(6)].map((_, i) => (
+              <m.div
+                key={i}
+                className="absolute h-1 w-1 rounded-full bg-white/20"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  y: [0, -30, 0],
+                  opacity: [0, 1, 0],
+                  scale: [0, 1, 0],
+                }}
+                transition={{
+                  duration: 3 + Math.random() * 2,
+                  repeat: Number.POSITIVE_INFINITY,
+                  delay: Math.random() * 2,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </m.section>
   );
 };

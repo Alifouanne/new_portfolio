@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge"; // Import shadcn/ui Badge compone
 import { BorderBeam } from "./magicui/border-beam";
 import { AnimatedGradientText } from "./magicui/animated-text";
 import { useTheme } from "next-themes";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const Projects = () => {
   const { ref } = useHeadreActive("Projects", 0.1);
@@ -44,16 +45,26 @@ const Projects = () => {
     },
     tap: { scale: 0.95 },
   };
-
+  const isMobile = useIsMobile();
   return (
     <section
       id="projects"
       className="mb-28 max-w-[50rem] scroll-mt-28 px-4 text-center sm:mb-40"
     >
       <div className="text mb-8 text-center text-3xl font-medium capitalize">
-        <AnimatedGradientText speed={1.5} colorFrom="#3eb489" colorTo="#90EE90">
-          My Projects
-        </AnimatedGradientText>
+        {isMobile ? (
+          <span className="block bg-gradient-to-r from-[#3eb489] to-[#90EE90] bg-clip-text font-bold text-transparent">
+            My Projects
+          </span>
+        ) : (
+          <AnimatedGradientText
+            speed={1.5}
+            colorFrom="#3eb489"
+            colorTo="#90EE90"
+          >
+            My Projects
+          </AnimatedGradientText>
+        )}
       </div>
 
       <div ref={ref}>
@@ -82,22 +93,28 @@ const Projects = () => {
                 title={project.alt}
               >
                 {/* Animated Border Glow */}
-                <m.div
-                  className="absolute inset-0 rounded-lg"
-                  style={{
-                    background: isDarkMode
-                      ? "linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent)"
-                      : "linear-gradient(45deg, transparent, rgba(100,100,255,0.1), transparent)",
-                  }}
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "linear",
-                  }}
-                />
+                {isMobile ? (
+                  ""
+                ) : (
+                  <>
+                    <m.div
+                      className="absolute inset-0 rounded-lg"
+                      style={{
+                        background: isDarkMode
+                          ? "linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent)"
+                          : "linear-gradient(45deg, transparent, rgba(100,100,255,0.1), transparent)",
+                      }}
+                      animate={{
+                        rotate: [0, 360],
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "linear",
+                      }}
+                    />
+                  </>
+                )}
 
                 <CardContent className="relative z-10 flex h-full flex-col px-5 pb-7 pt-2  sm:max-w-[50%] sm:pb-2 sm:pl-10 sm:pr-2  sm:group-even:ml-[18rem]">
                   <h3 className="mb-2 flex items-center gap-2 text-2xl font-semibold text-gray-800 dark:text-gray-200">
@@ -150,7 +167,7 @@ const Projects = () => {
                     group-even:group-hover:translate-x-3 group-even:group-hover:translate-y-3 group-even:group-hover:rotate-2
                     sm:block"
                 />
-                <BorderBeam duration={8} size={100} />
+                {isMobile ? "" : <BorderBeam duration={8} size={100} />}
               </Card>
             </Link>
           </m.div>

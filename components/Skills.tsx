@@ -5,6 +5,7 @@ import { m } from "framer-motion";
 import { IconCloud } from "./magicui/icon-cloud";
 import { AnimatedGradientText } from "./magicui/animated-text";
 import { useTheme } from "next-themes";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const slugs = [
   "html5",
@@ -56,6 +57,7 @@ const Skills = () => {
   const images = slugs.map(
     (slug) => `https://cdn.simpleicons.org/${slug}/${slug}`,
   );
+  const isMobile = useIsMobile();
   return (
     <section
       id="skills"
@@ -63,9 +65,19 @@ const Skills = () => {
       className="relative mb-28 max-w-[53rem] scroll-mt-28   px-4 text-center sm:mb-32" // Added px-4 and overflow-hidden
     >
       <div className="text mb-8 text-center text-3xl font-medium capitalize">
-        <AnimatedGradientText speed={1.5} colorFrom="#3eb489" colorTo="#90EE90">
-          My Skills
-        </AnimatedGradientText>
+        {isMobile ? (
+          <span className="block bg-gradient-to-r from-[#3eb489] to-[#90EE90] bg-clip-text font-bold text-transparent">
+            My Skills
+          </span>
+        ) : (
+          <AnimatedGradientText
+            speed={1.5}
+            colorFrom="#3eb489"
+            colorTo="#90EE90"
+          >
+            My Skills
+          </AnimatedGradientText>
+        )}
       </div>
 
       <IconCloud images={images} />

@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"; // Import Input component
 import { Textarea } from "@/components/ui/textarea"; // Import Textarea component
 import { AnimatedGradientText } from "./magicui/animated-text";
 import { useTheme } from "next-themes";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const Contact = () => {
   const { ref } = useHeadreActive("Contact");
@@ -41,7 +42,7 @@ const Contact = () => {
       },
     },
   };
-
+  const isMobile = useIsMobile();
   return (
     <m.section
       ref={ref}
@@ -94,9 +95,19 @@ const Contact = () => {
       </div>
 
       <div className="text mb-8 text-center text-3xl font-medium capitalize">
-        <AnimatedGradientText speed={1.5} colorFrom="#3eb489" colorTo="#90EE90">
-          Experience & Qualification
-        </AnimatedGradientText>
+        {isMobile ? (
+          <span className="block bg-gradient-to-r from-[#3eb489] to-[#90EE90] bg-clip-text font-bold text-transparent">
+            Contact
+          </span>
+        ) : (
+          <AnimatedGradientText
+            speed={1.5}
+            colorFrom="#3eb489"
+            colorTo="#90EE90"
+          >
+            Contact
+          </AnimatedGradientText>
+        )}
       </div>
 
       <p className="relative z-10 mb-8 text-center text-gray-700 dark:text-stone-200">

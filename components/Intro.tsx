@@ -14,7 +14,7 @@ import { AnimatedGradientText } from "./magicui/animated-text";
 import { StateButton } from "./ui/stateful-button";
 import { useTheme } from "next-themes";
 import { Badge } from "./ui/badge";
-
+import { useIsMobile } from "@/lib/useIsMobile";
 const Intro = () => {
   const { ref } = useHeadreActive("Home", 0.2);
   const { setActive, setTimeClick } = useHeaderContaext();
@@ -121,6 +121,7 @@ const Intro = () => {
       setTimeout(resolve, 4000);
     });
   };
+  const isMobile = useIsMobile();
 
   return (
     <m.section
@@ -156,15 +157,21 @@ const Intro = () => {
         className="mb-10 mt-8 px-4 text-2xl font-medium leading-tight sm:text-4xl"
         variants={itemVariants} // Use itemVariants for paragraph
       >
-        <span className="block font-bold">
-          <AnimatedGradientText
-            speed={1.5}
-            colorFrom="#3eb489"
-            colorTo="#90EE90"
-          >
+        {isMobile ? (
+          <span className="block bg-gradient-to-r from-[#3eb489] to-[#90EE90] bg-clip-text font-bold text-transparent">
             Hello, I'm Ali Fouanne.
-          </AnimatedGradientText>
-        </span>
+          </span>
+        ) : (
+          <span className="block font-bold">
+            <AnimatedGradientText
+              speed={1.5}
+              colorFrom="#3eb489"
+              colorTo="#90EE90"
+            >
+              Hello, I'm Ali Fouanne.
+            </AnimatedGradientText>
+          </span>
+        )}
 
         <m.div
           className="mt-2 flex flex-wrap justify-center gap-2"
