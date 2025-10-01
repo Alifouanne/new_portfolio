@@ -5,6 +5,7 @@ import CryptoImg from "@/public/crypto.png";
 import GymImg from "@/public/gym.png";
 import InvoiceMint from "@/public/Invoice_Mint.png";
 import JobForge from "@/public/job-forge.png";
+import Lynk from "@/public/Lynk.png";
 import MetaImg from "@/public/meta.png";
 import NotateImg from "@/public/Notate.png";
 import WeatherImg from "@/public/weather.png";
@@ -13,7 +14,7 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiLogoMeta } from "react-icons/bi";
 import { BsCurrencyBitcoin } from "react-icons/bs";
 import { CgGym } from "react-icons/cg";
-import { CiMemoPad } from "react-icons/ci";
+import { CiMemoPad, CiStreamOn } from "react-icons/ci";
 import { FaAirbnb, FaBlog, FaReact, FaUniversity } from "react-icons/fa";
 import { GiRunningShoe } from "react-icons/gi";
 import { HiOutlineChatBubbleLeftRight } from "react-icons/hi2";
@@ -55,7 +56,7 @@ export const experiencesData = [
     title: "Bachelor in Software Engineering",
     location: "Homs, Syria",
     company: "Al-Baath University",
-    description: "I graduated after 6 yars of studying. with GPA 2.96 .",
+    description: "I graduated after 6 years of studying. with GPA 2.96 .",
     icon: React.createElement(LuGraduationCap),
     date: "Sep 2015-Sep 2021",
   },
@@ -77,10 +78,10 @@ export const experiencesData = [
     date: "Jan 2023 - present",
   },
   {
-    title: "Software Enginner",
-    location: "Homs, Syria (Remotly)",
+    title: "Software Engineer",
+    location: "Homs, Syria (Remotely)",
     company: "Innovura",
-    description: "I worked as software enginner and full-stack developer ",
+    description: "I worked as software engineer and full-stack developer ",
     icon: React.createElement(TbBrandNextjs),
     date: "Jul 2023 - Sep 2023",
   },
@@ -159,7 +160,7 @@ export const projectsData = [
     github: "https://github.com/Alifouanne/Crypto-Website",
   },
   {
-    title: "Gym profile websit",
+    title: "Gym profile website",
     icon: React.createElement(CgGym),
     description:
       "This website is Gym portfolio website that's show gym services.",
@@ -273,6 +274,25 @@ export const projectsData = [
     liveDemo: "https://job-forge.vercel.app",
     github: "https://github.com/Alifouanne/job-forge",
   },
+  {
+    title: "Lynk",
+    icon: React.createElement(CiStreamOn),
+    description:
+      "Lynk is a modern, full-stack messaging application built with Next.js 14, featuring real-time chat, video calling, and a beautiful dark mode interface. Inspired by Telegram's user experience, Lynk provides a seamless communication platform with enterprise-grade features.",
+    tags: [
+      "Next.JS 15",
+      "TypeScript",
+      "Convex",
+      "Clerk",
+      "Stream",
+      "Tailwind",
+      "ShadCn",
+    ],
+    imageUrl: Lynk,
+    alt: "LynkImage",
+    liveDemo: "https://telegram-clone-liart-zeta.vercel.app/",
+    github: "https://github.com/Alifouanne/telegram-clone",
+  },
 ] as const;
 
 export const skillsData = [
@@ -296,4 +316,7 @@ export const skillsData = [
   "Material UI",
   "Sass",
   "Framer Motion",
+  "Convex",
+  "Clerk",
+  "Stream",
 ] as const;
