@@ -278,7 +278,7 @@ export const projectsData = [
     title: "Lynk",
     icon: React.createElement(CiStreamOn),
     description:
-      "Lynk is a modern, full-stack messaging application built with Next.js 14, featuring real-time chat, video calling, and a beautiful dark mode interface. Inspired by Telegram's user experience, Lynk provides a seamless communication platform with enterprise-grade features.",
+      "Lynk is a modern, full-stack messaging application built with Next.js 14, featuring real-time chat, video calling, and a beautiful dark mode interface.",
     tags: [
       "Next.JS 15",
       "TypeScript",
